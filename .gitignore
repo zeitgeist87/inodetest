@@ -1,0 +1,5 @@
+inodetest
+*.o
+.cproject
+.settings
+.project
