@@ -1,5 +1,10 @@
 inodetest
 =========
 
-Implementation of a simple program that creates 20 million inodes in the current working directory. It creates
-1000 root directories, which contain 1000 normal directories, which in turn contain 20 files each.
+```
+Usage: inodetest NROOT_DIRS NDIRS NFILES
+```
+
+Implementation of a simple program that creates NROOT_DIRS * NDIRS * NFILES
+inodes in the current working directory. It creates NROOT_DIRS root directories,
+which contain NDIRS normal directories, which in turn contain NFILES files each.
