@@ -15,12 +15,12 @@ static void usage(char **argv){
 	else
 		progname = argv[0];
 
-	printf("Usage: %s NROOT_DIRS NDIRS NFILES\n", progname);
+	printf("Usage: %s NROOT_DIRS NDIRS NFILES [NDEL]\n", progname);
 }
 
 int main(int argc, char **argv) {
 	int i, j, k;
-	int nroot, ndirs, nfiles;
+	int nroot, ndirs, nfiles, ndel = 0;
 	char name_buf[128];
 
 	if (argc < 4) {
@@ -31,6 +31,8 @@ int main(int argc, char **argv) {
 	nroot = atoi(argv[1]);
 	ndirs = atoi(argv[2]);
 	nfiles = atoi(argv[3]);
+	if (argc == 5)
+		ndel = atoi(argv[4]);
 
 	for (i = 0; i < nroot; ++i) {
 		snprintf(name_buf, sizeof(name_buf), "rootdir%d", i);
@@ -52,6 +54,20 @@ int main(int argc, char **argv) {
 			}
 
 			chdir("..");
+		}
+
+		for (j = 0; j < ndel; ++j) {
+			snprintf(name_buf, sizeof(name_buf), "dir%d", j);
+			chdir(name_buf);
+
+			for (k = 0; k < nfiles; ++k) {
+				snprintf(name_buf, sizeof(name_buf), "file%d", k);
+				remove(name_buf);
+			}
+
+			chdir("..");
+			snprintf(name_buf, sizeof(name_buf), "dir%d", j);
+			remove(name_buf);
 		}
 		chdir("..");
 	}
